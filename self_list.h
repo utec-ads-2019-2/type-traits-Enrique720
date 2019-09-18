@@ -39,17 +39,13 @@ class SelfList {
                     nodes = 0;
                     return true;
                 }
-                else if(size()>1){
+                else {
                     auto * temp = head;
                     head = head->next;
                     delete temp;
                     nodes--;
                     return true;
                 }
-                else {
-                    return false;
-                }
-
             }
             else {
                 while (it->next != nullptr) {
