@@ -44,7 +44,7 @@ public:
         }
     }
     bool remove(T data) {
-         auto ** pointer = &(this->head);
+        auto ** pointer = &(this->head);
         if(find(data,pointer)){
             auto* temp = (*pointer);
             (*pointer) = temp->next;
@@ -77,10 +77,12 @@ public:
     }
 
     void print() {
-        auto * temp =this->head;
-        for(int i = 0 ;i < this->nodes; i ++){
-            std::cout << temp->data << " ";
-            temp = temp->next;
+        if(head != nullptr) {
+            auto *temp = head;
+            for (int i = 0; i < nodes; i++) {
+                std::cout << temp->data << " ";
+                temp = temp->next;
+            }
         }
     }
 
