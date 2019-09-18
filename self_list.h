@@ -79,7 +79,6 @@ class SelfList {
                                 }
                                 temp = temp->next;
                             }
-
                             swap(temp->next->data, temp->data);
                             return true;
                         }
@@ -88,18 +87,24 @@ class SelfList {
                 }
                 case Move:{
                     auto *temp = head;
-                    while (temp != nullptr) {
-                        if (temp->data == data) {
-                            break;
+                    if(head->data == data) {
+                        return true;}
+                    if (nodes > 1) {
+                        while (temp->next != nullptr) {
+                            if (temp->next->data == data) {
+                                break;
+                            }
+                            temp = temp->next;
                         }
-                        temp = temp->next;
-                    }
-                    if(temp != head) {
-                        swap(head->data, temp->data);
+                        if(temp->next == nullptr){
+                            return false;
+                        }
+                        auto* new_head = temp->next;
+                        temp->next = temp->next->next;
+                        new_head->next =head;
+                        head =new_head;
                         return true;
                     }
-                    return false;
-
                 }
                 case Count: {
                     auto *temp = head;
@@ -110,16 +115,21 @@ class SelfList {
                         }
                         temp = temp->next;
                     }
-                    auto *it = head;
-                    while (it != nullptr) {
-                        if(temp == it)
-                            break;
-                        if (it->count < temp->count) {
-                            swap(it->data, temp->data);
-                            swap(it->count, temp->count);
-                            return true;
+                    if(temp== nullptr){
+                        return false;
+                    }
+                    else {
+                        auto *it = head;
+                        while (it != nullptr) {
+                            if (temp == it)
+                                break;
+                            if (it->count < temp->count) {
+                                swap(it->data, temp->data);
+                                swap(it->count, temp->count);
+                                return true;
+                            }
+                            it = it->next;
                         }
-                        it = it->next;
                     }
                 }
             }
