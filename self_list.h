@@ -33,36 +33,39 @@ class SelfList {
         }
         bool remove(T data) {
             auto * it = head;
-            if(size()==1) {
-                if(it->data == data){
-                    head== nullptr;
+            if(head->data == data) {
+                if (size()==1) {
+                    head = nullptr;
                     nodes = 0;
                     return true;
                 }
-                else{
+                else if(size()>1){
+                    auto * temp = head;
+                    head = head->next;
+                    delete temp;
+                    nodes--;
+                    return true;
+                }
+                else {
                     return false;
                 }
+
             }
             else {
-                while (it->next->data != data) {
-                    if(it->next == nullptr){
-                        return false;
+                while (it->next != nullptr) {
+                    if (it->next->data == data) {
+                        break;
                     }
                     it = it->next;
                 }
-                if (it->next->next == nullptr) {
-                    auto *temp = it->next;
-                    it->next = nullptr;
-                    delete temp;
-                    nodes--;
-                    return true;
-                } else {
-                    auto *temp = it->next;
-                    it->next = it->next->next;
-                    delete temp;
-                    nodes--;
-                    return true;
+                if(it->next == nullptr){
+                    return false;
                 }
+                auto * temp = it->next;
+                it->next = it->next->next;
+                nodes--;
+                delete temp;
+                return true;
             }
         }
 
@@ -78,6 +81,9 @@ class SelfList {
                                     break;
                                 }
                                 temp = temp->next;
+                            }
+                            if(temp->next == nullptr){
+                            return false;
                             }
                             swap(temp->next->data, temp->data);
                             return true;
@@ -105,6 +111,7 @@ class SelfList {
                         head =new_head;
                         return true;
                     }
+
                 }
                 case Count: {
                     auto *temp = head;
@@ -130,9 +137,11 @@ class SelfList {
                             }
                             it = it->next;
                         }
+                        return false;
                     }
                 }
             }
+            return false;
         }
 
         T operator [] (int index) {
@@ -151,10 +160,12 @@ class SelfList {
         }
 
         void print() {
-            auto *it = head;
-            while (it != nullptr){
-                std::cout << it->data << " ";
-                it = it->next;
+            if(head!= nullptr) {
+                auto *it = head;
+                while (it != nullptr) {
+                    std::cout << it->data << " ";
+                    it = it->next;
+                }
             }
         }
 
