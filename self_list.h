@@ -98,6 +98,7 @@ class SelfList {
                             }
                             temp = temp->next;
                         }
+                        // Por qué?
                         if(temp->next == nullptr){
                             return false;
                         }
@@ -166,8 +167,9 @@ class SelfList {
         }
 
         ~SelfList() {
-            if(nodes == 0){
 
+            if(nodes == 0){
+                // Y esto?
             }
             else{
                 this->head->killSelf();
